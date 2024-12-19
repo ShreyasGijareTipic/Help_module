@@ -14,7 +14,13 @@ const TicketForm = React.lazy(() => import('./views/pages/TicketForm'));
 const TicketTable = React.lazy(() => import('./views/pages/TicketTable'));
 const Assign = React.lazy(() => import('./views/pages/AssignPage'));
 const TicketFormLogin = React.lazy(() => import('./views/pages/TicketFormLogin'));
-const formLogin = React.lazy(() => import('./views/pages/formLogin'));
+const TicketTableNewTicket = React.lazy(() => import('./views/pages/TicketTableNewTicket'));
+const TicketTableInProcessTicket = React.lazy(() => import('./views/pages/TicketTableInProcessTicket'));
+const TicketTableClosedTicket = React.lazy(() => import('./views/pages/TicketTableClosedTicket'));
+const TicketTableDrAssist = React.lazy(() => import('./views/pages/TicketTableDrAssist'));
+const TicketTableAquaLogix = React.lazy(() => import('./views/pages/TicketTableAquaLogix'));
+
+
 // Products
 const NewProduct = React.lazy(() => import('./views/pages/products/NewProduct'));
 const NewCategory = React.lazy(() => import('./views/pages/category/NewCategory'));
@@ -42,7 +48,11 @@ const routes = [
   { path: '/dashboard', name: 'Dashboard', element: Dashboard },
   { path: '/TicketForm', name: 'TicketForm', element: TicketForm },
   { path: '/TicketFormLogin', name: 'TicketFormLogin', element: TicketFormLogin },
-  { path: '/formLogin', name: 'formLogin', element: formLogin },
+  { path: '/TicketTableNewTicket', name: 'TicketTableNewTicket', element: TicketTableNewTicket },
+  { path: '/TicketTableInProcessTicket', name: 'TicketTableInProcessTicket', element:TicketTableInProcessTicket },
+  { path: '/TicketTableClosedTicket', name: 'TicketTableClosedTicket', element:TicketTableClosedTicket },
+  { path: '/TicketTableDrAssist', name: 'TicketTableDrAssist', element:TicketTableDrAssist },
+  { path: '/TicketTableAquaLogix', name: 'TicketTableAquaLogix', element:TicketTableAquaLogix },
   { path: '/TicketTable', name: 'TicketTable', element: TicketTable },
   { path: '/Assign/:id', name: 'Assign', element: Assign },
   { path: '/invoice', name: 'Invoice', element: Invoice },

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const styles = {
   container: {
@@ -57,6 +58,7 @@ const TicketForm = () => {
   });
 
   const [screenshots, setScreenshots] = useState([]);
+  const navigate = useNavigate(); // Use navigate hook for navigation
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -100,6 +102,9 @@ const TicketForm = () => {
         }
       );
       alert("Ticket submitted successfully!");
+
+      // Navigate to the login page after successful submission
+      navigate("/login");
     } catch (error) {
       alert("Ticket submission failed.");
       console.error("Error submitting ticket:", error);
@@ -158,16 +163,18 @@ const TicketForm = () => {
           required
         />
 
-        <label style={styles.label}>Product ID*</label>
-        <input
-          type="text"
-          style={styles.input}
+        <label style={styles.label}>Product*</label>
+        <select
           name="products_id"
-          placeholder="Enter the product ID"
+          style={styles.input}
           value={formData.products_id}
           onChange={handleInputChange}
           required
-        />
+        >
+          <option value="">Select a product</option>
+          <option value="1">Dr Assist</option>
+          <option value="2">Aqua Logix</option>
+        </select>
 
         <label style={styles.label}>Upload Screenshots (Optional)</label>
         <input

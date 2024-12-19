@@ -108,7 +108,8 @@ const TicketTable = () => {
     const fetchTickets = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/tickets");
-        setTickets(response.data);
+        const newTickets = response.data.filter((ticket) => ticket.products_id === 1); // Filter to show only "New" tickets
+        setTickets(newTickets);
       } catch (err) {
         console.error("Error fetching tickets:", err);
         setError("Unable to fetch tickets.");
@@ -150,11 +151,7 @@ const TicketTable = () => {
   // Pagination calculations
   const totalPages = Math.ceil(tickets.length / ticketsPerPage);
   const startIndex = (currentPage - 1) * ticketsPerPage;
-
-  // Sort tickets by ID in descending order (latest ticket first)
-  const sortedTickets = tickets.sort((a, b) => b.id - a.id); // Sort by ticket ID (descending)
-
-  const currentTickets = sortedTickets.slice(startIndex, startIndex + ticketsPerPage);
+  const currentTickets = tickets.slice(startIndex, startIndex + ticketsPerPage);
 
   if (loading) return <p>Loading tickets...</p>;
   if (error) return <p>{error}</p>;

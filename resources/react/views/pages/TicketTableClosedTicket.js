@@ -108,7 +108,8 @@ const TicketTable = () => {
     const fetchTickets = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/api/tickets");
-        setTickets(response.data);
+        const newTickets = response.data.filter((ticket) => ticket.status === 2);
+        setTickets(newTickets);
       } catch (err) {
         console.error("Error fetching tickets:", err);
         setError("Unable to fetch tickets.");
@@ -150,11 +151,7 @@ const TicketTable = () => {
   // Pagination calculations
   const totalPages = Math.ceil(tickets.length / ticketsPerPage);
   const startIndex = (currentPage - 1) * ticketsPerPage;
-
-  // Sort tickets by ID in descending order (latest ticket first)
-  const sortedTickets = tickets.sort((a, b) => b.id - a.id); // Sort by ticket ID (descending)
-
-  const currentTickets = sortedTickets.slice(startIndex, startIndex + ticketsPerPage);
+  const currentTickets = tickets.slice(startIndex, startIndex + ticketsPerPage);
 
   if (loading) return <p>Loading tickets...</p>;
   if (error) return <p>{error}</p>;
@@ -205,15 +202,7 @@ const TicketTable = () => {
                   "No Screenshot"
                 )}
               </td>
-              <td style={styles.td}>
-                {ticket.status === 0
-                  ? "New"
-                  : ticket.status === 1
-                  ? "In process"
-                  : ticket.status === 2
-                  ? "Closed"
-                  : "Unknown"}
-              </td>
+              <td style={styles.td}>Closed</td>
               <td style={styles.td}>
                 <div style={styles.actionContainer}>
                   <button
