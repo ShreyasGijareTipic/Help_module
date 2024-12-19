@@ -18,6 +18,7 @@ class Ticket extends Model
         'screen_shot',
         'status',
         'updated_by',
+        'user_id'
        
     ];
 

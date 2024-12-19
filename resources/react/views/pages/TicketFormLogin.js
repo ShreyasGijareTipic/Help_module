@@ -9,6 +9,7 @@ const TicketFormLogin = () => {
     email: "",
     query: "",
     products_id: "",
+    user_id: "",
   });
   const [screenshots, setScreenshots] = useState([]);
   const navigate = useNavigate();
@@ -67,12 +68,14 @@ const TicketFormLogin = () => {
         typeof userData.token === "string" && userData.token.length > 0;
 
       if (isTokenValid) {
+        // Set the form data from sessionStorage
         setFormData({
           client_name: userData.user?.name || "",
           mobile: userData.user?.mobile || "",
           email: userData.user?.email || "",
           query: "",
-          products_id: "",
+          products_id: userData.user?.product_id || "", // Get product_id from sessionStorage
+          user_id: userData.user?.id || "", // Get user_id from sessionStorage
         });
       } else {
         navigate("/login"); // Redirect to login if token is invalid
@@ -97,6 +100,7 @@ const TicketFormLogin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Check if query and products_id are provided
     if (!formData.query || !formData.products_id) {
       alert("Please fill in all required fields.");
       return;
@@ -107,7 +111,8 @@ const TicketFormLogin = () => {
     payload.append("mobile", formData.mobile);
     payload.append("email", formData.email);
     payload.append("query", formData.query);
-    payload.append("products_id", formData.products_id);
+    payload.append("products_id", formData.products_id); // Product ID from sessionStorage
+    payload.append("user_id", formData.user_id); // User ID from sessionStorage
 
     screenshots.forEach((file) => {
       payload.append("screenshots[]", file);
@@ -155,6 +160,7 @@ const TicketFormLogin = () => {
             onChange={handleInputChange}
             style={styles.input}
             required
+            readOnly // Making it read-only since it's coming from sessionStorage
           />
         </div>
         <div>
@@ -166,7 +172,10 @@ const TicketFormLogin = () => {
             style={styles.input}
           />
         </div>
-        <button type="submit" style={formData.query && formData.products_id ? { ...styles.button, ...styles.buttonActive } : styles.button}>
+        <button
+          type="submit"
+          style={formData.query && formData.products_id ? { ...styles.button, ...styles.buttonActive } : styles.button}
+        >
           Submit
         </button>
       </form>
